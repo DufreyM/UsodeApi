@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Crear el contenedor principal
     const container = document.createElement('div');
+    container.style.background = '#408e29';
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
     container.style.alignItems = 'center';
@@ -10,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Botón
     const fetchButton = document.createElement('button');
     fetchButton.textContent = 'woba loba dob dog';
+    fetchButton.style.background = '#f08a14'; 
+    fetchButton.style.fontSize = '40px'
     fetchButton.onclick = Rick;
 
     // Crear el contenedor donde se mostrará la frase
@@ -17,9 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resultsContainer.id = 'results';
     resultsContainer.style.marginTop = '20px';
     resultsContainer.style.fontSize = '20px';
-    resultsContainer.style.fontWeight = 'bold';
     resultsContainer.style.textAlign = 'center';
-    resultsContainer.style.maxWidth = '400px';
+    resultsContainer.style.maxWidth = '100%';
 
     container.appendChild(fetchButton);
     container.appendChild(resultsContainer);
@@ -58,7 +60,7 @@ function Rick() {
     const personajeAleatorio = personajes[Math.floor(Math.random() * personajes.length)];
     const frases = frasesRickAndMorty.get(personajeAleatorio);
     const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
-
+    
     resultsContainer.innerHTML = `<p>${personajeAleatorio}: "${fraseAleatoria}"</p>`;
     
 setTimeout(()=>{
@@ -73,7 +75,7 @@ setTimeout(()=>{
             resultsContainer.innerHTML = '';
             resultsContainer.style.display = 'grid';
             resultsContainer.style.gridTemplateColumns = 'repeat(5, 2fr)';
-            resultsContainer.style.gap = '10px';
+            resultsContainer.style.gap = '20px';
 
             // get random 10 characters
 
@@ -100,8 +102,5 @@ setTimeout(()=>{
             });
         })
         .catch(error => console.error('Error fetching characters:', error));
-
-
-},3000)
-    
+},3000)   
 }
