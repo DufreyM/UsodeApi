@@ -60,7 +60,8 @@ function Rick() {
     const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
 
     resultsContainer.innerHTML = `<p>${personajeAleatorio}: "${fraseAleatoria}"</p>`;
-
+    
+setTimeout(()=>{
     fetch('https://rickandmortyapi.com/api/character')
     .then(response => response.json())
     .then(data => {
@@ -69,13 +70,38 @@ function Rick() {
             resultsContainer.style.height = '100vh';
             resultsContainer.style.margin = '0 auto';
             resultsContainer.style.overflow = 'auto';
-
             resultsContainer.innerHTML = '';
             resultsContainer.style.display = 'grid';
-            resultsContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            resultsContainer.style.gridTemplateColumns = 'repeat(5, 2fr)';
             resultsContainer.style.gap = '10px';
-    })    
+
+            // get random 10 characters
+
+            const dataImages = data.results;
+            datafiltrada = dataImages.filter(element=>{
+                if (element.status == 'Dead'){
+                    return element;
+                } 
+            })
+            datafiltrada.forEach(CharacterData => {
+                const elementc = document.createElement('div');
+                elementc.innerHTML = `
+                    <p>ID: ${CharacterData.id}</p>
+                    <p>Name: ${CharacterData.name}</p>
+                    <p>Especie: ${CharacterData.species}</p>
+                    <p>Estado: ${CharacterData.status}</p>
+                    <img src="${CharacterData.image}" alt="${CharacterData.name}" width="100px" />
+                `;
+
+                elementc.style.border = '1px solid #ccc';
+                elementc.style.padding = '10px';
+                elementc.style.borderRadius = '16px';
+                resultsContainer.appendChild(elementc);
+            });
+        })
+        .catch(error => console.error('Error fetching characters:', error));
+
+
+},3000)
+    
 }
-
-
-
